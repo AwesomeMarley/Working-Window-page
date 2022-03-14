@@ -84,15 +84,15 @@ const innerpage_element = document.createElement('iframe');
 innerpage_element.id = 'innerpage'; innerpage_element.src="https://editor.p5js.org/bgk/full/66ovixQKD";
  frame_element.append(innerpage_element);
 
-// Minimum resizable area
+
 var minWidth = 60;
 var minHeight = 40;
 
-// Thresholds
-var FULLSCREEN_MARGINS = -10;
-var MARGINS = 4;
 
-// End of what's configurable.
+var FULLSCREEN_MARGINS = -10;
+var MARGINS = 6;
+
+
 var clicked = null;
 var onRightEdge, onBottomEdge, onLeftEdge, onTopEdge;
 
@@ -240,23 +240,23 @@ function animate() {
   if (clicked && clicked.isMoving) {
 
     if (b.top < FULLSCREEN_MARGINS || b.left < FULLSCREEN_MARGINS || b.right > window.innerWidth - FULLSCREEN_MARGINS || b.bottom > window.innerHeight - FULLSCREEN_MARGINS) {
-      // hintFull();
+      
       setBounds(ghostframe, 0, 0, window.innerWidth, window.innerHeight);
       ghostframe.style.opacity = 0.2;
     } else if (b.top < MARGINS) {
-      // hintTop();
+      
       setBounds(ghostframe, 0, 0, window.innerWidth, window.innerHeight / 2);
       ghostframe.style.opacity = 0.2;
     } else if (b.left < MARGINS) {
-      // hintLeft();
+      
       setBounds(ghostframe, 0, 0, window.innerWidth / 2, window.innerHeight);
       ghostframe.style.opacity = 0.2;
     } else if (b.right > rightScreenEdge) {
-      // hintRight();
+      
       setBounds(ghostframe, window.innerWidth / 2, 0, window.innerWidth / 2, window.innerHeight);
       ghostframe.style.opacity = 0.2;
     } else if (b.bottom > bottomScreenEdge) {
-      // hintBottom();
+      
       setBounds(ghostframe, 0, window.innerHeight / 2, window.innerWidth, window.innerWidth / 2);
       ghostframe.style.opacity = 0.2;
     } else {
@@ -273,16 +273,14 @@ function animate() {
       return;
     }
 
-    // moving
+
     frame.style.top = (e.clientY - clicked.y) + 'px';
     frame.style.left = (e.clientX - clicked.x) + 'px';
 
     return;
   }
 
-  // This code executes when mouse moves without clicking
 
-  // style cursor
   if (onRightEdge && onBottomEdge || onLeftEdge && onTopEdge) {
     frame.style.cursor = 'nwse-resize';
   } else if (onRightEdge && onTopEdge || onBottomEdge && onLeftEdge) {
@@ -304,30 +302,30 @@ function onUp(e) {
   calc(e);
 
   if (clicked && clicked.isMoving) {
-    // Snap
+    
     var snapped = {
       width: b.width,
       height: b.height
     };
 
     if (b.top < FULLSCREEN_MARGINS || b.left < FULLSCREEN_MARGINS || b.right > window.innerWidth - FULLSCREEN_MARGINS || b.bottom > window.innerHeight - FULLSCREEN_MARGINS) {
-      // hintFull();
+      
       setBounds(frame, 0, 0, window.innerWidth, window.innerHeight);
       preSnapped = snapped;
     } else if (b.top < MARGINS) {
-      // hintTop();
+      
       setBounds(frame, 0, 0, window.innerWidth, window.innerHeight / 2);
       preSnapped = snapped;
     } else if (b.left < MARGINS) {
-      // hintLeft();
+      
       setBounds(frame, 0, 0, window.innerWidth / 2, window.innerHeight);
       preSnapped = snapped;
     } else if (b.right > rightScreenEdge) {
-      // hintRight();
+      
       setBounds(frame, window.innerWidth / 2, 0, window.innerWidth / 2, window.innerHeight);
       preSnapped = snapped;
     } else if (b.bottom > bottomScreenEdge) {
-      // hintBottom();
+      
       setBounds(frame, 0, window.innerHeight / 2, window.innerWidth, window.innerWidth / 2);
       preSnapped = snapped;
     } else {
